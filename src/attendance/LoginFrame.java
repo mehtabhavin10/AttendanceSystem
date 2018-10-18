@@ -114,15 +114,16 @@ public class LoginFrame extends javax.swing.JFrame {
         String username=userTextField.getText();
         char pass1[]=passwordTextField.getPassword();
         String pass=new String(pass1);
+        String pass2 = passwordTextField.getPassword().toString();
         Object selectedItem = userTypeCombo.getSelectedItem();
         boolean check=true;
         String combo=selectedItem.toString();
         if(username.equals("")){
-            JOptionPane.showMessageDialog(this, "Username cannot be emopty", "Alert",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Username cannot be empty", "Alert",JOptionPane.ERROR_MESSAGE);
             check=false;
         }
-        if(pass.equals("")){
-            JOptionPane.showMessageDialog(this, "Password cannot be emopty", "Alert",JOptionPane.ERROR_MESSAGE);
+        if(pass2.equals("")){
+            JOptionPane.showMessageDialog(this, "Password cannot be empty", "Alert",JOptionPane.ERROR_MESSAGE);
             check=false;
         }
         if(combo.equals("Select")){
@@ -139,7 +140,7 @@ public class LoginFrame extends javax.swing.JFrame {
             DbConnect db=new DbConnect();
             Statement stmt=null;
             Connection connection=null;
-            connection=db.getConn();
+            connection=db.getConn(this);
             String sql="";
             if(table.equals("student")){
                 sql="Select * from "+table+" where sapid ='"+username+"'and password='"+pass+"'";

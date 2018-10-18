@@ -236,7 +236,7 @@ public class TrackAttendance extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutButtonActionPerformed
     public void displayTableOnPanel(JFrame jframe){
         DbConnect db=new DbConnect();
-        Connection conn=db.getConn();
+        Connection conn=db.getConn(this);
        String sql="Select fid from faculty where name='"+username+"'";
        ResultSetOperations rso=new ResultSetOperations(username);
        fid=rso.getFid(conn, sql);

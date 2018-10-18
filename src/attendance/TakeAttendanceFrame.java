@@ -354,7 +354,7 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
            conn=null;
            st=null;
            db=new DbConnect();
-           conn=db.getConn();
+           conn=db.getConn(this);
            
            table="";
            String sql="";
@@ -451,7 +451,7 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
                 attSap=sap.get(displayCount);
                 System.out.println(attSap);
                 db=new DbConnect();
-                conn1=db.getConn();
+                conn1=db.getConn(this);
                
                             if(table.equals("attendance")){
                                  sql="Insert into attendance values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
@@ -503,7 +503,7 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
                 attSap=sap.get(displayCount);
                 System.out.println(attSap);
                 db=new DbConnect();
-                conn1=db.getConn();
+                conn1=db.getConn(this);
                
                             if(table.equals("attendance")){
                                  sql="Insert into attendance values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
