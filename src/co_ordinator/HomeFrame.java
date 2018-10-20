@@ -127,15 +127,14 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 631));
 
         backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        menuPanel.setBackground(new java.awt.Color(74, 20, 140));
+        menuPanel.setBackground(new java.awt.Color(62, 39, 35));
 
-        userIconPanel.setBackground(new java.awt.Color(74, 20, 140));
+        userIconPanel.setBackground(new java.awt.Color(62, 39, 35));
 
-        userIcon.setBackground(new java.awt.Color(74, 20, 140));
+        userIcon.setBackground(new java.awt.Color(230, 81, 0));
         userIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         userIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
 
@@ -201,19 +200,19 @@ public class HomeFrame extends javax.swing.JFrame {
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(logoutIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        contentPanel.setBackground(new java.awt.Color(170, 0, 255));
+        contentPanel.setBackground(new java.awt.Color(121, 85, 72));
         contentPanel.setLayout(new java.awt.GridBagLayout());
 
-        contentTitlePanel.setBackground(new java.awt.Color(170, 0, 255));
+        contentTitlePanel.setBackground(new java.awt.Color(121, 85, 72));
 
-        titleIcon.setBackground(new java.awt.Color(170, 0, 255));
+        titleIcon.setBackground(new java.awt.Color(13, 71, 161));
         titleIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/update.png"))); // NOI18N
 
-        titleText.setBackground(new java.awt.Color(170, 0, 255));
+        titleText.setBackground(new java.awt.Color(13, 71, 161));
         titleText.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         titleText.setForeground(new java.awt.Color(255, 255, 255));
         titleText.setText("Update Student Attendance");
@@ -244,7 +243,7 @@ public class HomeFrame extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         contentPanel.add(contentTitlePanel, gridBagConstraints);
 
-        subjectPanel.setBackground(new java.awt.Color(170, 0, 255));
+        subjectPanel.setBackground(new java.awt.Color(121, 85, 72));
 
         subjectLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         subjectLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -283,14 +282,14 @@ public class HomeFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
         contentPanel.add(subjectPanel, gridBagConstraints);
 
-        sapIdPanel.setBackground(new java.awt.Color(170, 0, 255));
+        sapIdPanel.setBackground(new java.awt.Color(121, 85, 72));
 
         sapIdLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         sapIdLabel.setForeground(new java.awt.Color(255, 255, 255));
         sapIdLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         sapIdLabel.setText("SAP ID:");
 
-        sapIdTextField.setBackground(new java.awt.Color(170, 0, 255));
+        sapIdTextField.setBackground(new java.awt.Color(121, 85, 72));
         sapIdTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         sapIdTextField.setForeground(new java.awt.Color(255, 255, 255));
         sapIdTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
@@ -325,7 +324,7 @@ public class HomeFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
         contentPanel.add(sapIdPanel, gridBagConstraints);
 
-        statusPanel.setBackground(new java.awt.Color(170, 0, 255));
+        statusPanel.setBackground(new java.awt.Color(121, 85, 72));
 
         statusDateChooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
