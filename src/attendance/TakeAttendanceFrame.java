@@ -5,7 +5,7 @@
  */
 package attendance;
 
-import com.mysql.jdbc.log.Log;
+//import com.mysql.jdbc.log.Log;
 import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -354,7 +354,7 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
            conn=null;
            st=null;
            db=new DbConnect();
-           conn=db.getConn(this);
+           conn=db.getConn();
            
            table="";
            String sql="";
@@ -451,7 +451,7 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
                 attSap=sap.get(displayCount);
                 System.out.println(attSap);
                 db=new DbConnect();
-                conn1=db.getConn(this);
+                conn1=db.getConn();
                
                             if(table.equals("attendance")){
                                  sql="Insert into attendance values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
@@ -461,16 +461,24 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
                             if(table.equals("d1")){
                                 sql="Insert into d1 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
                                 rso.insertInD1(conn, sql);
+                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D1')";
+                                rso.insertInPrac(conn, sql);
                             }
                             if(table.equals("d2")){
                                 sql="Insert into d2 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
                                 rso.insertInD2(conn, sql);
+                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D2')";
+                                rso.insertInPrac(conn, sql);
                             }if(table.equals("d3")){
                                  sql="Insert into d3 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
                                 rso.insertInD3(conn, sql);
+                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D3')";
+                                rso.insertInPrac(conn, sql);
                             }if(table.equals("d4")){
                                   sql="Insert into d4 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
                                 rso.insertInD4(conn, sql);
+                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D4')";
+                                rso.insertInPrac(conn, sql);
                             }
                     } 
 
@@ -503,7 +511,7 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
                 attSap=sap.get(displayCount);
                 System.out.println(attSap);
                 db=new DbConnect();
-                conn1=db.getConn(this);
+                conn1=db.getConn();
                
                             if(table.equals("attendance")){
                                  sql="Insert into attendance values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
@@ -513,16 +521,24 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
                             if(table.equals("d1")){
                                 sql="Insert into d1 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
                                 rso.insertInD1(conn, sql);
+                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D1')";
+                                rso.insertInPrac(conn, sql);
                             }
                             if(table.equals("d2")){
                                 sql="Insert into d2 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
                                 rso.insertInD2(conn, sql);
+                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D2')";
+                                rso.insertInPrac(conn, sql);
                             }if(table.equals("d3")){
                                  sql="Insert into d3 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
                                 rso.insertInD3(conn, sql);
+                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D3')";
+                                rso.insertInPrac(conn, sql);
                             }if(table.equals("d4")){
                                   sql="Insert into d4 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
                                 rso.insertInD4(conn, sql);
+                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D4')";
+                                rso.insertInPrac(conn, sql);
                             }
                     } 
 
@@ -584,6 +600,7 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
                taf.setVisible(true);
                taf.setLocationRelativeTo(null);
                taf.setExtendedState(JFrame.MAXIMIZED_BOTH);
+               taf.setResizable(false);
                taf.setUserName();
                taf.hideComboBox();
                taf.setMinDate();

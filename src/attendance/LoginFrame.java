@@ -5,7 +5,6 @@
  */
 package attendance;
 
-import co_ordinator.HomeFrame;
 import java.sql.*;
 import java.awt.BorderLayout;
 import java.sql.ResultSet;
@@ -115,16 +114,15 @@ public class LoginFrame extends javax.swing.JFrame {
         String username=userTextField.getText();
         char pass1[]=passwordTextField.getPassword();
         String pass=new String(pass1);
-        String pass2 = passwordTextField.getPassword().toString();
         Object selectedItem = userTypeCombo.getSelectedItem();
         boolean check=true;
         String combo=selectedItem.toString();
         if(username.equals("")){
-            JOptionPane.showMessageDialog(this, "Username cannot be empty", "Alert",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Username cannot be emopty", "Alert",JOptionPane.ERROR_MESSAGE);
             check=false;
         }
-        if(pass2.equals("")){
-            JOptionPane.showMessageDialog(this, "Password cannot be empty", "Alert",JOptionPane.ERROR_MESSAGE);
+        if(pass.equals("")){
+            JOptionPane.showMessageDialog(this, "Password cannot be emopty", "Alert",JOptionPane.ERROR_MESSAGE);
             check=false;
         }
         if(combo.equals("Select")){
@@ -137,20 +135,16 @@ public class LoginFrame extends javax.swing.JFrame {
                 table="student";
             }else if(combo.equals("Faculty")){
                 table="faculty";
-            }else if(combo.equals("Co-ordinator")){
-                table = "coordinator";
             }
             DbConnect db=new DbConnect();
             Statement stmt=null;
             Connection connection=null;
-            connection=db.getConn(this);
+            connection=db.getConn();
             String sql="";
             if(table.equals("student")){
                 sql="Select * from "+table+" where sapid ='"+username+"'and password='"+pass+"'";
             }else if(table.equals("faculty")){
                 sql="Select * from "+table+" where name ='"+username+"'and password='"+pass+"'";
-            }else if(table.equals("coordinator")){
-                    sql="Select * from "+table+" where username ='"+username+"'and password='"+pass+"'";
             }
             try {
                 stmt=(Statement) connection.createStatement();
@@ -159,7 +153,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 ResultSet rs=stmt.executeQuery(sql);
                 if(rs.isBeforeFirst()){
                 while(rs.next()){
-                
+                String name=rs.getString("name");
                 if(success&&table.equals("faculty")){
                     this.dispose();
                     String passName=rs.getString("name");
@@ -168,11 +162,8 @@ public class LoginFrame extends javax.swing.JFrame {
                 }else if(success && table.equals("student")){
                     this.dispose();
                     ViewStudAttendanceFrame.main(null);
-                }else if(success && table.equals("coordinator")){
-                    this.dispose();
-                    new HomeFrame(username);
-                    HomeFrame.main(null);
                 }
+                
               }
              }else{
                     JOptionPane.showMessageDialog(this, "Invalid credentails", "Alert",JOptionPane.ERROR_MESSAGE);

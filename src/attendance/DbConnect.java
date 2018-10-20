@@ -5,10 +5,8 @@
  */
 package attendance;
 
-import java.awt.Component;
 import java.sql.*;
 import java.sql.DriverManager;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +18,7 @@ public class DbConnect {
    String DB_DRV ="com.mysql.jdbc.Driver";
     String DB_USER = "root";
     String DB_PASSWD = "";
-   Connection getConn(Component component){
+   Connection getConn(){
         Connection conn = null;
       
         try{
@@ -28,9 +26,6 @@ public class DbConnect {
             conn = (Connection) DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
             
         }catch(Exception e){
-            
-            JOptionPane.showMessageDialog(component, "Cannot connect to Database! Try Later.", "Alert",JOptionPane.ERROR_MESSAGE);
-            
             System.out.println("hi");
             System.out.print(e);
         }
