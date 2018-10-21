@@ -325,19 +325,13 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="12">
-                        <StringItem index="0" value="DS"/>
-                        <StringItem index="1" value="DBMS"/>
-                        <StringItem index="2" value="PCOM"/>
-                        <StringItem index="3" value="LD"/>
-                        <StringItem index="4" value="JAVA"/>
-                        <StringItem index="5" value="MATHS"/>
-                        <StringItem index="6" value="Applied Maths 3"/>
-                        <StringItem index="7" value="Database Management System"/>
-                        <StringItem index="8" value="Data Structures"/>
-                        <StringItem index="9" value="Java Programming Language"/>
-                        <StringItem index="10" value="Logic Design"/>
-                        <StringItem index="11" value="Principles Of Communication"/>
+                      <StringArray count="6">
+                        <StringItem index="0" value="Applied Maths 3"/>
+                        <StringItem index="1" value="Database Management System"/>
+                        <StringItem index="2" value="Data Structures"/>
+                        <StringItem index="3" value="Java Programming Language"/>
+                        <StringItem index="4" value="Logic Design"/>
+                        <StringItem index="5" value="Principles Of Communication"/>
                       </StringArray>
                     </Property>
                   </Properties>

@@ -5,6 +5,7 @@
  */
 package attendance;
 
+import co_ordinator.HomeFrame;
 import java.sql.*;
 import java.awt.BorderLayout;
 import java.sql.ResultSet;
@@ -135,6 +136,8 @@ public class LoginFrame extends javax.swing.JFrame {
                 table="student";
             }else if(combo.equals("Faculty")){
                 table="faculty";
+            }else if(combo.equals("Co-ordinator")){
+                table="coordinator";
             }
             DbConnect db=new DbConnect();
             Statement stmt=null;
@@ -145,6 +148,8 @@ public class LoginFrame extends javax.swing.JFrame {
                 sql="Select * from "+table+" where sapid ='"+username+"'and password='"+pass+"'";
             }else if(table.equals("faculty")){
                 sql="Select * from "+table+" where name ='"+username+"'and password='"+pass+"'";
+            }else if(table.equals("coordinator")){
+                sql="Select * from "+table+" where username = '"+username+"' and password = '"+pass+"'";
             }
             try {
                 stmt=(Statement) connection.createStatement();
@@ -153,7 +158,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 ResultSet rs=stmt.executeQuery(sql);
                 if(rs.isBeforeFirst()){
                 while(rs.next()){
-                String name=rs.getString("name");
+                //String name=rs.getString("name");
                 if(success&&table.equals("faculty")){
                     this.dispose();
                     String passName=rs.getString("name");
@@ -162,6 +167,10 @@ public class LoginFrame extends javax.swing.JFrame {
                 }else if(success && table.equals("student")){
                     this.dispose();
                     ViewStudAttendanceFrame.main(null);
+                }else if(success && table.equals("coordinator")){
+                    this.dispose();
+                    new HomeFrame(username);
+                    HomeFrame.main(null);
                 }
                 
               }

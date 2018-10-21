@@ -252,7 +252,7 @@ public class HomeFrame extends javax.swing.JFrame {
 
         subjectComboBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         subjectComboBox.setForeground(new java.awt.Color(255, 255, 255));
-        subjectComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DS", "DBMS", "PCOM", "LD", "JAVA", "MATHS", "Applied Maths 3", "Database Management System", "Data Structures", "Java Programming Language", "Logic Design", "Principles Of Communication" }));
+        subjectComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Applied Maths 3", "Database Management System", "Data Structures", "Java Programming Language", "Logic Design", "Principles Of Communication" }));
 
         javax.swing.GroupLayout subjectPanelLayout = new javax.swing.GroupLayout(subjectPanel);
         subjectPanel.setLayout(subjectPanelLayout);
