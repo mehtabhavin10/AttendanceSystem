@@ -9,6 +9,7 @@ import attendance.TakeAttendanceFrame;
 import attendance.ViewStudAttendanceFrame;
 import co_ordinator.HomeFrame;
 import connection.JDBCConnect;
+import faculty.FacultyTakeFrame;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import student.StudentHomeFrame;
 
 /**
  *
@@ -122,12 +124,19 @@ public class LoginFrame extends javax.swing.JFrame {
                 switch(userType) {
                     
                     case "student" :    this.dispose();
-                                        ViewStudAttendanceFrame.main(null);
+
+                                        String stuName = res.getString("name");
+                                        //new ViewStudAttendanceFrame(stuName,username);
+                                        new StudentHomeFrame(username, stuName);
+                                        //ViewStudAttendanceFrame.main(null);
+                                        StudentHomeFrame.main(null);
                                         break;
                                         
                     case "faculty" :    this.dispose();
-                                        new TakeAttendanceFrame(username);
-                                        TakeAttendanceFrame.main(null);
+                                        //new TakeAttendanceFrame(username);
+                                        //TakeAttendanceFrame.main(null);
+                                        new FacultyTakeFrame(username);
+                                        FacultyTakeFrame.main(null);
                                         break;
                                         
                     case "coordinator" :       this.dispose();
@@ -555,7 +564,7 @@ public class LoginFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginFrame().setVisible(true);
+               // new LoginFrame().setVisible(true);
                 LoginFrame loginFrame = new LoginFrame();
                 loginFrame.setVisible(true);
                 loginFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);

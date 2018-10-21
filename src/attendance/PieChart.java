@@ -27,6 +27,7 @@ public class PieChart extends JFrame {
         
         super(applicationTitle);
         System.out.println("In constructor");
+        System.out.println("title: " + chartTitle + "\n present: "+pper + "\n absent: "+aper);
         PieDataset dataset = createDataset(pper,aper);
         JFreeChart chart = createChart(dataset, chartTitle);
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -45,6 +46,7 @@ public class PieChart extends JFrame {
         super(applicationTitle);
         
         System.out.println("In constructor");
+        System.out.println("title: " + chartTitle + "\n present: "+pper + "\n absent: "+aper);
         PieDataset dataset = createDataset(pper,aper);
         JFreeChart chart = createChart(dataset, chartTitle);
         ChartPanel chartPanel = new ChartPanel(chart);

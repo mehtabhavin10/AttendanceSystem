@@ -41,7 +41,7 @@ public class TrackAttendance extends javax.swing.JFrame {
         initComponents();
         
     }
-    TrackAttendance(String username){
+   public  TrackAttendance(String username){
         this.username=username;
     }
     public void setUsername(){
@@ -198,7 +198,6 @@ public class TrackAttendance extends javax.swing.JFrame {
         });
         jTable1.setRowHeight(65);
         jTable1.setRowMargin(3);
-        jTable1.setShowGrid(true);
         jsp.setViewportView(jTable1);
 
         javax.swing.GroupLayout tablePanelLayout = new javax.swing.GroupLayout(tablePanel);

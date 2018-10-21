@@ -439,7 +439,7 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
 
     private void presentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_presentButtonActionPerformed
         try {
-            String attSap,sid="",fid="",present,sname="",sql;
+            String attSap,sid="",fid="",present,sname="",sql,sql2;
             present="Present";
             ResultSetOperations rso=new ResultSetOperations(username);
             sql="Select fid from faculty where name='"+username+"'";

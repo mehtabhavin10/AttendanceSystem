@@ -5,7 +5,7 @@
  */
 package co_ordinator;
 
-import attendance.LoginFrame;
+import login.LoginFrame;
 import connection.JDBCConnect;
 import javax.swing.JFrame;
 import java.sql.ResultSet;
