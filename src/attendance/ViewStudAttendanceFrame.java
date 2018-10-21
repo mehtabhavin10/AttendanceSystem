@@ -5,17 +5,81 @@
  */
 package attendance;
 
+import static attendance.TrackAttendance.username;
+import static attendance.TrackPracAttendance.batch;
+import java.awt.event.ItemEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author priyamvora
  */
 public class ViewStudAttendanceFrame extends javax.swing.JFrame {
-
+static String sname="",sap,sub,sql;
+boolean subSelected=false;
+DbConnect db;
+Connection conn;
+Statement st;
+ResultSetOperations rso;
+ResultSet rs;
+int present,absent,total;
+float avpresent,avgabsent;
     /**
      * Creates new form ViewStudAttendanceFrame
      */
     public ViewStudAttendanceFrame() {
         initComponents();
+    }
+    public ViewStudAttendanceFrame(String sname,String sap){
+        this.sname=sname;
+        this.sap=sap;
+    }
+    public void setStuName(){
+        stuNameLabel.setText("Welcome "+sname);
+    }
+    public void displayTheoryOnTable(){
+        DbConnect db=new DbConnect();
+        Connection conn=db.getConn();
+        sql="Select date as Date,name as Lecture,status as Status from attendance where sapid='"+sap+"'order by date desc,name";
+        ResultSetOperations rso=new ResultSetOperations(sname);
+        ResultSet theory=rso.populateTable(conn, sql);
+        theoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        theoryTable.setModel(DbUtils.resultSetToTableModel(theory));
+        
+        
+    }
+    public void displayPracOnTable(){
+         DbConnect db=new DbConnect();
+        Connection conn=db.getConn();
+        sql="Select date as Date,name as Lecture,status as Status from prac where sapid='"+sap+"'order by date desc,name";
+        ResultSetOperations rso=new ResultSetOperations(sname);
+        ResultSet theory=rso.populateTable(conn, sql);
+        pracTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        pracTable.setModel(DbUtils.resultSetToTableModel(theory));
+    }
+    public void populateCombo(){
+    try {
+        db=new DbConnect();
+        conn=db.getConn();
+        rso=new ResultSetOperations(sap);
+        sql="Select name from subject";
+        rs=rso.getSubName(conn, sql);
+        subPicker.addItem("Select");
+        while(rs.next()){
+            subPicker.addItem(rs.getString("name"));
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(ViewStudAttendanceFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -27,21 +91,314 @@ public class ViewStudAttendanceFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        stuNamePanel = new javax.swing.JPanel();
+        stuNameLabel = new javax.swing.JLabel();
+        logoutButton = new javax.swing.JButton();
+        theoryTablePanel = new javax.swing.JPanel();
+        theoryScrollPane = new javax.swing.JScrollPane();
+        theoryTable = new javax.swing.JTable();
+        pracTablePanel = new javax.swing.JPanel();
+        pracScrollPane = new javax.swing.JScrollPane();
+        pracTable = new javax.swing.JTable();
+        graphTablePanel = new javax.swing.JPanel();
+        theoryGraph = new javax.swing.JPanel();
+        pracGraph = new javax.swing.JPanel();
+        comboAndButtonPanel = new javax.swing.JPanel();
+        subPicker = new javax.swing.JComboBox<>();
+        goButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        stuNameLabel.setBackground(new java.awt.Color(153, 153, 153));
+        stuNameLabel.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        stuNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        stuNameLabel.setText("Hi Priyam Vora");
+
+        logoutButton.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        logoutButton.setText("Logout");
+
+        javax.swing.GroupLayout stuNamePanelLayout = new javax.swing.GroupLayout(stuNamePanel);
+        stuNamePanel.setLayout(stuNamePanelLayout);
+        stuNamePanelLayout.setHorizontalGroup(
+            stuNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(stuNamePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(stuNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                .addGap(554, 554, 554)
+                .addComponent(logoutButton))
+        );
+        stuNamePanelLayout.setVerticalGroup(
+            stuNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(stuNamePanelLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(stuNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stuNameLabel)
+                    .addComponent(logoutButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        theoryTable.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        theoryTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Date", "Subject", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        theoryTable.setRowHeight(50);
+        theoryScrollPane.setViewportView(theoryTable);
+
+        javax.swing.GroupLayout theoryTablePanelLayout = new javax.swing.GroupLayout(theoryTablePanel);
+        theoryTablePanel.setLayout(theoryTablePanelLayout);
+        theoryTablePanelLayout.setHorizontalGroup(
+            theoryTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(theoryTablePanelLayout.createSequentialGroup()
+                .addComponent(theoryScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        theoryTablePanelLayout.setVerticalGroup(
+            theoryTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(theoryTablePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(theoryScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pracTable.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        pracTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Date", "Lecture", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        pracTable.setRowHeight(50);
+        pracScrollPane.setViewportView(pracTable);
+
+        javax.swing.GroupLayout pracTablePanelLayout = new javax.swing.GroupLayout(pracTablePanel);
+        pracTablePanel.setLayout(pracTablePanelLayout);
+        pracTablePanelLayout.setHorizontalGroup(
+            pracTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pracScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        pracTablePanelLayout.setVerticalGroup(
+            pracTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pracTablePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pracScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout theoryGraphLayout = new javax.swing.GroupLayout(theoryGraph);
+        theoryGraph.setLayout(theoryGraphLayout);
+        theoryGraphLayout.setHorizontalGroup(
+            theoryGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 713, Short.MAX_VALUE)
+        );
+        theoryGraphLayout.setVerticalGroup(
+            theoryGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 812, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pracGraphLayout = new javax.swing.GroupLayout(pracGraph);
+        pracGraph.setLayout(pracGraphLayout);
+        pracGraphLayout.setHorizontalGroup(
+            pracGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pracGraphLayout.setVerticalGroup(
+            pracGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout graphTablePanelLayout = new javax.swing.GroupLayout(graphTablePanel);
+        graphTablePanel.setLayout(graphTablePanelLayout);
+        graphTablePanelLayout.setHorizontalGroup(
+            graphTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(graphTablePanelLayout.createSequentialGroup()
+                .addComponent(theoryGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pracGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        graphTablePanelLayout.setVerticalGroup(
+            graphTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(graphTablePanelLayout.createSequentialGroup()
+                .addGroup(graphTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(theoryGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pracGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        subPicker.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                subPickerItemStateChanged(evt);
+            }
+        });
+        subPicker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subPickerActionPerformed(evt);
+            }
+        });
+
+        goButton.setText("Go");
+        goButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout comboAndButtonPanelLayout = new javax.swing.GroupLayout(comboAndButtonPanel);
+        comboAndButtonPanel.setLayout(comboAndButtonPanelLayout);
+        comboAndButtonPanelLayout.setHorizontalGroup(
+            comboAndButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(comboAndButtonPanelLayout.createSequentialGroup()
+                .addComponent(subPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addComponent(goButton, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 35, Short.MAX_VALUE))
+        );
+        comboAndButtonPanelLayout.setVerticalGroup(
+            comboAndButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(comboAndButtonPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(comboAndButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(goButton)
+                    .addComponent(subPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(graphTablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(theoryTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pracTablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(stuNamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(comboAndButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(stuNamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(theoryTablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pracTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboAndButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(graphTablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void subPickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subPickerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_subPickerActionPerformed
+
+    private void subPickerItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_subPickerItemStateChanged
+        // TODO add your handling code here:
+        if(evt.getStateChange()==ItemEvent.SELECTED){
+            sub=(String)subPicker.getSelectedItem();
+            if(!sub.equals("Select")){
+                subSelected=true;
+            }
+        }
+    }//GEN-LAST:event_subPickerItemStateChanged
+
+    private void goButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goButtonActionPerformed
+        // TODO add your handling code here:
+        if(!subSelected){
+            JOptionPane.showMessageDialog(this,"Select a subject","ALert",JOptionPane.ERROR_MESSAGE);
+        }else{
+            try {
+                theoryGraph.setVisible(false);
+                pracGraph.setVisible(false);
+                db=new DbConnect();
+                conn=db.getConn();
+                rso=new ResultSetOperations(sap);
+                
+                String status="Present";
+                sql="Select sid from subject where name='"+sub+"'";
+                ResultSet rs=rso.getSubName(conn, sql);
+                String sid="";
+                if(rs.next()){
+                sid=rs.getString("sid");
+                }
+                sql="Select count(date) as lecCount from attendance where sid='"+sid+"' and sapid='"+sap+"'";
+                rso.setLecCount(conn, sql);
+                
+                sql="Select count(status) as lecPresentCount from attendance where sapid='"+sap+"' and sid='"+sid+"' and status='"+status+"'";
+                present=rso.returnLecPresentCount(conn, sql);
+                absent=rso.returnLecAbsentCount();
+               
+                total=present+absent;
+                avpresent=((float)present*100)/total;
+                avgabsent=100.00f-avpresent;
+               
+                theoryGraph.setVisible(true);
+                theoryGraph.removeAll();
+                 PieChart pc=new PieChart("","Total theory lectures of "+sub+": "+total,theoryGraph,avpresent,avgabsent,3);
+                sql="Select count(date) as pracCount from prac where sid='"+sid+"' and sapid='"+sap+"'";
+                rso.setPracCount(conn, sql);
+                
+                sql="Select count(status) as pracPresentCount from prac where sapid='"+sap+"' and sid='"+sid+"' and status='"+status+"'";
+                present=rso.returnPracPresentCount(conn, sql);
+                absent=rso.returnPracAbsentCount();
+                System.out.println(present);
+                System.out.println(absent);
+                total=present+absent;
+                avpresent=((float)present*100)/total;
+                avgabsent=100.00f-avpresent;
+                System.out.println(avpresent);
+                System.out.println(avgabsent);
+                System.out.println(total);
+                pracGraph.setVisible(true);
+                pracGraph.removeAll();
+                PieChart pc1=new PieChart("","Total practical lectures of "+sub+": "+total,pracGraph,avpresent,avgabsent,3);
+                
+                        } catch (SQLException ex) {
+                Logger.getLogger(ViewStudAttendanceFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_goButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -73,11 +430,35 @@ public class ViewStudAttendanceFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewStudAttendanceFrame().setVisible(true);
+                ViewStudAttendanceFrame vsaf =new ViewStudAttendanceFrame();
+                vsaf.setVisible(true);
+                vsaf.setStuName();
+                vsaf.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                vsaf.setResizable(false);
+                
+                vsaf.setLocationRelativeTo(null);
+                vsaf.populateCombo();
+                vsaf.displayTheoryOnTable();
+                vsaf.displayPracOnTable();
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel comboAndButtonPanel;
+    private javax.swing.JButton goButton;
+    private javax.swing.JPanel graphTablePanel;
+    private javax.swing.JButton logoutButton;
+    private javax.swing.JPanel pracGraph;
+    private javax.swing.JScrollPane pracScrollPane;
+    private javax.swing.JTable pracTable;
+    private javax.swing.JPanel pracTablePanel;
+    private javax.swing.JLabel stuNameLabel;
+    private javax.swing.JPanel stuNamePanel;
+    private javax.swing.JComboBox<String> subPicker;
+    private javax.swing.JPanel theoryGraph;
+    private javax.swing.JScrollPane theoryScrollPane;
+    private javax.swing.JTable theoryTable;
+    private javax.swing.JPanel theoryTablePanel;
     // End of variables declaration//GEN-END:variables
 }

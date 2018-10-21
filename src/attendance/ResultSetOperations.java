@@ -25,6 +25,18 @@ public class ResultSetOperations {
         this.username=username;
         
     }
+    ResultSet getSubName(Connection conn,String sql){
+        try {
+            st=conn.createStatement();
+            rs=st.executeQuery(sql);
+           
+            
+            
+        } catch (SQLException ex) {
+            System.out.print(ex);
+        }
+        return rs;
+    }
     String getFid(Connection conn,String sql){
         try {
             st=conn.createStatement();

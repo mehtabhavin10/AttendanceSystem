@@ -41,7 +41,9 @@ public class PieChart extends JFrame {
   
     }
     public PieChart(String applicationTitle, String chartTitle,JPanel jp,float pper,float aper,int option){
+        
         super(applicationTitle);
+        
         System.out.println("In constructor");
         PieDataset dataset = createDataset(pper,aper);
         JFreeChart chart = createChart(dataset, chartTitle);
@@ -49,9 +51,13 @@ public class PieChart extends JFrame {
         jp.setVisible(true);
         jp.removeAll();
         jp.setLayout(new BorderLayout());
-        
+        if(option==2){
         chartPanel.setPreferredSize(new java.awt.Dimension(509, 476));
-        
+        }if(option==3){
+            chartPanel.setPreferredSize(new java.awt.Dimension(700, 700));
+        }else{
+            chartPanel.setPreferredSize(new java.awt.Dimension(450, 700));
+        }
         
         jp.add(chartPanel,BorderLayout.CENTER);
 
