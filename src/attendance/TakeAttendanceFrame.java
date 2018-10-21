@@ -438,122 +438,128 @@ public class TakeAttendanceFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jDateChooserPropertyChange
 
     private void presentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_presentButtonActionPerformed
-        // TODO add your handling code here:
-        String attSap,sid="",fid="",present;
-        present="Present";
-        ResultSetOperations rso=new ResultSetOperations(username);
-        String sql="Select fid from faculty where name='"+username+"'";
-        fid=rso.getFid(conn,sql);
-        sql="Select sid from faculty_subject where fid='"+fid+"'";
-        sid=rso.getSubId(conn,sql);
-        if(displayCount<(count1)){
-        
+        try {
+            String attSap,sid="",fid="",present,sname="",sql;
+            present="Present";
+            ResultSetOperations rso=new ResultSetOperations(username);
+            sql="Select fid from faculty where name='"+username+"'";
+            fid=rso.getFid(conn,sql);
+            sql="Select sid from faculty_subject where fid='"+fid+"'";
+            sid=rso.getSubId(conn,sql);
+            sql="Select name from subject where sid='"+sid+"'";
+            ResultSet rs=rso.getSubName(conn, sql);
+            if(rs.next()){
+            sname=rs.getString("name");
+            }
+            if(displayCount<(count1)){
+                
                 attSap=sap.get(displayCount);
                 System.out.println(attSap);
                 db=new DbConnect();
                 conn1=db.getConn();
-               
-                            if(table.equals("attendance")){
-                                 sql="Insert into attendance values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
-                                rso.insertInAttendance(conn,sql);
-                            }
-                       
-                            if(table.equals("d1")){
-                                sql="Insert into d1 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
-                                rso.insertInD1(conn, sql);
-                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D1')";
-                                rso.insertInPrac(conn, sql);
-                            }
-                            if(table.equals("d2")){
-                                sql="Insert into d2 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
-                                rso.insertInD2(conn, sql);
-                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D2')";
-                                rso.insertInPrac(conn, sql);
-                            }if(table.equals("d3")){
-                                 sql="Insert into d3 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
-                                rso.insertInD3(conn, sql);
-                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D3')";
-                                rso.insertInPrac(conn, sql);
-                            }if(table.equals("d4")){
-                                  sql="Insert into d4 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
-                                rso.insertInD4(conn, sql);
-                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D4')";
-                                rso.insertInPrac(conn, sql);
-                            }
-                    } 
-
-       
-        
-        displayCount++;
-        if(displayCount!=count1){
-            sapLabel.setText(sap.get(displayCount));
-            stuNameLabel.setText(name.get(displayCount));
+                
+                if(table.equals("attendance")){
+                    sql="Insert into attendance values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"','"+sname+"')";
+                    rso.insertInAttendance(conn,sql);
+                }
+                
+                if(table.equals("d1")){
+                    sql="Insert into d1 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
+                    rso.insertInD1(conn, sql);
+                    sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D1','"+sname+"')";
+                    rso.insertInPrac(conn, sql);
+                }
+                if(table.equals("d2")){
+                    sql="Insert into d2 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
+                    rso.insertInD2(conn, sql);
+                    sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D2','"+sname+"')";
+                    rso.insertInPrac(conn, sql);
+                }if(table.equals("d3")){
+                    sql="Insert into d3 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
+                    rso.insertInD3(conn, sql);
+                    sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D3','"+sname+"')";
+                    rso.insertInPrac(conn, sql);
+                }if(table.equals("d4")){
+                    sql="Insert into d4 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
+                    rso.insertInD4(conn, sql);
+                    sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D4','"+sname+"')";
+                    rso.insertInPrac(conn, sql);
+                }
+            }
+            displayCount++;
+            if(displayCount!=count1){
+                sapLabel.setText(sap.get(displayCount));
+                stuNameLabel.setText(name.get(displayCount));
+            }   if(displayCount==count1){
+                displayCount=0;
+                jPanel1.setVisible(false);
+                
+            } } catch (SQLException ex) {
+            Logger.getLogger(TakeAttendanceFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(displayCount==count1){
-          displayCount=0;
-          jPanel1.setVisible(false);  
-        
-      }
         
     }//GEN-LAST:event_presentButtonActionPerformed
 
     private void absentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_absentButtonActionPerformed
-        // TODO add your handling code here:
-        String attSap,sid="",fid="",present;
-        present="Absent";
-        ResultSetOperations rso=new ResultSetOperations(username);
-        String sql="Select fid from faculty where name='"+username+"'";
-        fid=rso.getFid(conn,sql);
-        sql="Select sid from faculty_subject where fid='"+fid+"'";
-        sid=rso.getSubId(conn,sql);
-        if(displayCount<(count1)){
-        
+        try {
+            String attSap,sid="",fid="",present,sname="";
+            present="Absent";
+            ResultSetOperations rso=new ResultSetOperations(username);
+            String sql="Select fid from faculty where name='"+username+"'";
+            fid=rso.getFid(conn,sql);
+            sql="Select sid from faculty_subject where fid='"+fid+"'";
+            sid=rso.getSubId(conn,sql);
+            sql="Select name from subject where sid='"+sid+"'";
+            ResultSet rs=rso.getSubName(conn, sql);
+            if(rs.next()){
+            sname=rs.getString("name");
+            }
+            if(displayCount<(count1)){
+                
                 attSap=sap.get(displayCount);
                 System.out.println(attSap);
                 db=new DbConnect();
                 conn1=db.getConn();
-               
-                            if(table.equals("attendance")){
-                                 sql="Insert into attendance values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
-                                rso.insertInAttendance(conn,sql);
-                            }
-                       
-                            if(table.equals("d1")){
-                                sql="Insert into d1 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
-                                rso.insertInD1(conn, sql);
-                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D1')";
-                                rso.insertInPrac(conn, sql);
-                            }
-                            if(table.equals("d2")){
-                                sql="Insert into d2 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
-                                rso.insertInD2(conn, sql);
-                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D2')";
-                                rso.insertInPrac(conn, sql);
-                            }if(table.equals("d3")){
-                                 sql="Insert into d3 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
-                                rso.insertInD3(conn, sql);
-                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D3')";
-                                rso.insertInPrac(conn, sql);
-                            }if(table.equals("d4")){
-                                  sql="Insert into d4 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
-                                rso.insertInD4(conn, sql);
-                                sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D4')";
-                                rso.insertInPrac(conn, sql);
-                            }
-                    } 
-
-       
-        
-        displayCount++;
-        if(displayCount!=count1){
-            sapLabel.setText(sap.get(displayCount));
-            stuNameLabel.setText(name.get(displayCount));
+                
+                if(table.equals("attendance")){
+                    sql="Insert into attendance values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"','"+sname+"')";
+                    rso.insertInAttendance(conn,sql);
+                }
+                
+                if(table.equals("d1")){
+                    sql="Insert into d1 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
+                    rso.insertInD1(conn, sql);
+                    sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D1','"+sname+"')";
+                    rso.insertInPrac(conn, sql);
+                }
+                if(table.equals("d2")){
+                    sql="Insert into d2 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
+                    rso.insertInD2(conn, sql);
+                    sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D2','"+sname+"')";
+                    rso.insertInPrac(conn, sql);
+                }if(table.equals("d3")){
+                    sql="Insert into d3 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
+                    rso.insertInD3(conn, sql);
+                    sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D3','"+sname+"')";
+                    rso.insertInPrac(conn, sql);
+                }if(table.equals("d4")){
+                    sql="Insert into d4 values('"+dateSelected+"','"+attSap+"','"+fid+"','"+sid+"','"+present+"')";
+                    rso.insertInD4(conn, sql);
+                    sql="Insert into prac values('"+dateSelected+"','"+attSap+"','"+sid+"','"+fid+"','"+present+"','D4','"+sname+"')";
+                    rso.insertInPrac(conn, sql);
+                }
+            }
+            displayCount++;
+            if(displayCount!=count1){
+                sapLabel.setText(sap.get(displayCount));
+                stuNameLabel.setText(name.get(displayCount));
+            }   if(displayCount==count1){
+                displayCount=0;
+                jPanel1.setVisible(false);
+                
+            } } catch (SQLException ex) {
+            Logger.getLogger(TakeAttendanceFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(displayCount==count1){
-          displayCount=0;
-          jPanel1.setVisible(false);  
-        
-      }
        
     }//GEN-LAST:event_absentButtonActionPerformed
 

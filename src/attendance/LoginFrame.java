@@ -161,6 +161,9 @@ public class LoginFrame extends javax.swing.JFrame {
                     TakeAttendanceFrame.main(null);
                 }else if(success && table.equals("student")){
                     this.dispose();
+                    String stuName=rs.getString("name");
+                    String sap=rs.getString("sapid");
+                    ViewStudAttendanceFrame vsaf=new ViewStudAttendanceFrame(stuName,sap); 
                     ViewStudAttendanceFrame.main(null);
                 }
                 
